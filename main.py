@@ -1,3 +1,4 @@
+import models
 import fire
 
 def printDisease(diseaseId):
@@ -5,7 +6,8 @@ def printDisease(diseaseId):
     Returns the diseaseId introduced
     :param diseaseId: identifier of the disease to search
     """
-    print("Disease:", diseaseId)
+    firstGene = models.Gene({'symbolOfGene':"PRC1","score": 0.9, "yearInitial": 2008, "yearFinal": 2021})
+    print("Disease data:", firstGene)
 
 def printGene(geneHGNCsymbol):
     """
