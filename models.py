@@ -1,5 +1,3 @@
-from tabulate import tabulate
-
 class Gene:
     """Model class for Gene"""
     def __init__(self, geneData):
@@ -11,7 +9,3 @@ class Gene:
     def generateGeneTableInfo(self):
         geneTableInfo = [self.geneSymbol, self.geneScore, self.geneInitialYear, self.geneFinalYear];
         return geneTableInfo;
-    
-    # def __str__(self):
-    #     geneTableInfo = [self.geneSymbol, self.geneScore, self.geneInitialYear, self.geneFinalYear]
-    #     return tabulate(geneTableInfo, headers=["Gene HGNC symbol", "Score", "Initial Year", "Final Year"])

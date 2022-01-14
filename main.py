@@ -1,26 +1,40 @@
 import models
+from utils import Request, Response
+
 import fire
 from tabulate import tabulate
 
+request = Request();
 
-def printDisease(diseaseId):
+def printDiseaseInformation(diseaseId):
     """
-    Returns the diseaseId introduced
+    Returns the first 10 genes associated with the disease identified by the diseaseId provided.
+    The results are organized by descending score. The information provided fo each gene is:
+        * Gene HGNC symbol
+        * Score
+        * Initial Year
+        * Final Year
     :param diseaseId: identifier of the disease to search
     """
-    firstGene = models.Gene({'symbolOfGene':"PRC1","score": 0.9, "yearInitial": 2008, "yearFinal": 2021})
-    print(tabulate([firstGene.generateGeneTableInfo()], headers=["Gene HGNC symbol", "Score", "Initial Year", "Final Year"]))
 
-def printGene(geneHGNCsymbol):
+    diseaseRequest = request.requestDisease(diseaseId)
+    diseaseResponse = Response(diseaseRequest.json())
+    associatedGenes = diseaseResponse.getDiseaseData()
+    print(tabulate(associatedGenes, headers=["Gene HGNC symbol", "Score", "Initial Year", "Final Year"]))
+
+def printGeneInformation(geneHGNCsymbol):
     """
-    Returns the geneHGNCsymbol introduced       
+    Returns the Gene HGNC symbol introduced and the number of variants associated with said gene. 
     :param geneHGNCsymbol: HGNC symbol of the gene to search
     """
-    numberOfVariants = 5
+
+    geneRequest = request.requestGene(geneHGNCsymbol);
+    geneResponse = Response(geneRequest.json())
+    numberOfVariants = len(geneResponse.getGeneData())
     print(tabulate([[geneHGNCsymbol, numberOfVariants]], headers=["Gene Symbol", "Number of variants"]))
 
 if __name__ == "__main__":
     fire.Fire({
-        "disease": printDisease,
-        "gene": printGene
+        "disease": printDiseaseInformation,
+        "gene": printGeneInformation
     })
