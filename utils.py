@@ -4,30 +4,30 @@ from models import Gene
 class Request:
     def __init__(self):
         self.headers = {'Authorization': '7e90948a-4418-4f2b-99cb-8386e1b1d57f'}
-        self.baseUrl = 'https://api2.disgenetplus.com/api/v1';
+        self.base_url = 'https://api2.disgenetplus.com/api/v1';
 
-    def requestDisease(self, diseaseId):
-        queryParams = {'disease': f'UMLS_{diseaseId}'}
-        diseaseReq = requests.get(f'{self.baseUrl}/gda/summary', params=queryParams, headers=self.headers)
+    def request_disease(self, disease_id):
+        query_params = {'disease': f'UMLS_{disease_id}'}
+        disease_req = requests.get(f'{self.base_url}/gda/summary', params=query_params, headers=self.headers)
 
-        return diseaseReq
+        return disease_req
 
-    def requestGene(self, geneHGNCsymbol):
-        queryParams = {'gene_symbol': geneHGNCsymbol}
-        geneReq = requests.get(f'{self.baseUrl}/entity/gene', params=queryParams, headers=self.headers)
+    def request_gene(self, gene_HGNC_symbol):
+        query_params = {'gene_symbol': gene_HGNC_symbol}
+        gene_req = requests.get(f'{self.base_url}/entity/gene', params=query_params, headers=self.headers)
 
-        return geneReq
+        return gene_req
 
 class Response:
-    def __init__(self, reqResponse):
-        self.data = reqResponse['payload']
+    def __init__(self, req_response):
+        self.data = req_response['payload']
 
-    def getDiseaseData(self):
-        genesAssociatedData = map(self.createGeneData, self.data)
-        return list(genesAssociatedData)[0:10]
+    def get_disease(self):
+        genes_associated_data = map(self.create_gene_data, self.data)
+        return list(genes_associated_data)[0:10]
 
-    def createGeneData(self, data):
-        return Gene(data).generateGeneTableInfo()
+    def create_gene_data(self, data):
+        return Gene(data).create_table_info()
 
-    def getGeneData(self):
+    def get_gene_variants(self):
         return self.data[0]['geneToVariants']
