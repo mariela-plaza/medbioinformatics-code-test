@@ -20,14 +20,29 @@ class Request:
 
 class Response:
     def __init__(self, req_response):
-        self.data = req_response['payload']
+        self.status = req_response['status']
+        if self.status == 'OK':
+            self.data = req_response['payload']
+        
 
     def get_disease(self):
-        genes_associated_data = map(self.create_gene_data, self.data)
-        return list(genes_associated_data)[0:10]
+        if self.status == 'OK':
+            if self.check_returned_data():
+                genes_associated_data = map(self.create_gene_data, self.data)
+                return list(genes_associated_data)[0:10]
+            else:
+                return []
 
     def create_gene_data(self, data):
         return Gene(data).create_table_info()
 
     def get_gene_variants(self):
-        return self.data[0]['geneToVariants']
+        if self.status == 'OK':
+            if self.check_returned_data():
+                return self.data[0]['geneToVariants']
+            else:
+                return []
+    
+    def check_returned_data(self):
+        return len(self.data) != 0
+        
