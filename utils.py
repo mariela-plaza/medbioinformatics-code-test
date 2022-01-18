@@ -4,14 +4,22 @@ from models import Gene
 
 class Request:
     def __init__(self):
-        self._headers = {'Authorization': self.getApiKey()}
+        self._api_key = self.get_api_key()
+        self._headers = {'Authorization': self._api_key}
         self.base_url = 'https://api2.disgenetplus.com/api/v1'
 
-    def getApiKey(self):
-        apiKeyJSONFile = open('apiKey.json')
-        apiKey = json.load(apiKeyJSONFile)['apiKey']
-        apiKeyJSONFile.close()
-        return apiKey
+    def get_api_key(self):
+        api_key_JSON_File = open('apiKey.json')
+        api_key = json.load(api_key_JSON_File)['apiKey']
+        checked_api_key = self.check_api_key(api_key)
+        api_key_JSON_File.close()
+        return checked_api_key
+
+    def check_api_key(self, api_key):
+        clean_api_key = api_key.strip()
+        if len(clean_api_key) == 36:
+            return clean_api_key
+        raise SystemExit('Invalid API key. Please, check the apiKey.json file and type in a correct API key')
 
     def print_waiting_message(self):
         print('Request is being made, please hold...')
