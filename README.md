@@ -11,6 +11,36 @@ To use the disease and gene command utility, you need the following:
 - python3
 - An API Key for the DISGENET plus API
 
+## Instalation
+
+You can install the disease and gene command utility in two ways:
+
+### 1. Using the github repository:
+
+Go to the github repository github.com/mariela-plaza/medbioinformatics-code-test and clone it to your computer with the following command line:
+
+```bash
+git clone https://github.com/mariela-plaza/medbioinformatics-code-test.git
+```
+
+Install the dependencies of the project with the following command line:
+
+```bash
+pip install -r requirements.txt
+```
+
+You are ready now to make use of the disease and gene command utility as shown in the usage section of this file.
+
+### 2. Using the .zip file
+
+Unpack the.zip file in a place on your computer. Once that is done, go to the most inner main-1.0 directory and install the dependencies of the project with the following command line:
+
+```bash
+pip install -r requirements.txt
+```
+
+You are ready now to make use of the disease and gene command utility as shown in the usage section of this file.
+
 ## Usage
 
 1. Enter your API Key for the DISGENET plus API in the apiKey.json file in place of the placeholder "TYPE_YOUR_API_KEY"
