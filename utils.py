@@ -1,21 +1,31 @@
 import requests
+import json
 from models import Gene
 
 class Request:
     def __init__(self):
-        self.headers = {'Authorization': '7e90948a-4418-4f2b-99cb-8386e1b1d57f'}
-        self.base_url = 'https://api2.disgenetplus.com/api/v1';
+        self._headers = {'Authorization': self.getApiKey()}
+        self.base_url = 'https://api2.disgenetplus.com/api/v1'
+
+    def getApiKey(self):
+        apiKeyJSONFile = open('apiKey.json')
+        apiKey = json.load(apiKeyJSONFile)['apiKey']
+        apiKeyJSONFile.close()
+        return apiKey
+
+    def print_waiting_message(self):
+        print('Request is being made, please hold...')
 
     def request_disease(self, disease_id):
+        self.print_waiting_message()
         query_params = {'disease': f'UMLS_{disease_id}'}
-        disease_req = requests.get(f'{self.base_url}/gda/summary', params=query_params, headers=self.headers)
-
+        disease_req = requests.get(f'{self.base_url}/gda/summary', params=query_params, headers=self._headers)
         return disease_req
 
     def request_gene(self, gene_HGNC_symbol):
+        self.print_waiting_message()
         query_params = {'gene_symbol': gene_HGNC_symbol}
-        gene_req = requests.get(f'{self.base_url}/entity/gene', params=query_params, headers=self.headers)
-
+        gene_req = requests.get(f'{self.base_url}/entity/gene', params=query_params, headers=self._headers)
         return gene_req
 
 class Response:
@@ -24,7 +34,6 @@ class Response:
         if self.status == 'OK':
             self.data = req_response['payload']
         
-
     def get_disease(self):
         if self.status == 'OK':
             if self.check_returned_data():

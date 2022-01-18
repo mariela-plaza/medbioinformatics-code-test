@@ -25,7 +25,7 @@ def print_disease_information(disease_id):
         else:
             print('The parameter you provided is incorrect / not in our database. Please, try with a new disease UMLS code')
     else:
-        print('The request failed. Please check your API key and try again')
+        print('The request failed. Please try again')
     
 
 def print_gene_information(gene_HGNC_symbol):
@@ -38,14 +38,13 @@ def print_gene_information(gene_HGNC_symbol):
     gene_response = Response(gene_request.json())
 
     if gene_response.status == 'OK':
-        print(gene_response.status)
         number_of_variants = len(gene_response.get_gene_variants())
         if number_of_variants != 0:
             print(tabulate([[gene_HGNC_symbol, number_of_variants]], headers=["Gene Symbol", "Number of variants"]))
         else:
             print('The parameter you provided is incorrect / not in our database. Please, try with a new HGNC gene symbol')
     else:
-        print('The request failed. Please check your API key and try again')
+        print('The request failed. Please try again')
 
 if __name__ == "__main__":
     fire.Fire({
