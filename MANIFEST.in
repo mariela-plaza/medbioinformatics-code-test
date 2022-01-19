@@ -1,1 +1,1 @@
-include *.txt *.json *.md 
+include *.txt *.json *.md *.pdf

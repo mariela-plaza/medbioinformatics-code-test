@@ -1,3 +1,3 @@
-fire
-tabulate
-requests
+fire == 0.4.0
+tabulate == 0.8.9
+requests == 2.27.1
