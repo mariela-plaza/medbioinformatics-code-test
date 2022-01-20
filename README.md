@@ -73,6 +73,8 @@ python main.py disease DISEASE_IDENTIFIER
 python main.py gene GENE_HGNC_SYMBOL
 ```
 
+![DISGENET-CLI-app-example](DISGENET-CLI-app.gif)
+
 ## Author
 
 - Mariela Plaza

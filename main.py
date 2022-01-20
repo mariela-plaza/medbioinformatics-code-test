@@ -3,7 +3,7 @@ from tabulate import tabulate
 
 from utils import Request, Response
 
-request = Request();
+request = Request()
 
 def print_disease_information(disease_id):
     """
